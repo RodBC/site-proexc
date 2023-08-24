@@ -1,0 +1,64 @@
+/* Estilos gerais */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  min-height: 100vh; /* Garante que o conteúdo ocupe pelo menos a altura da tela */
+  background-color: #f8f8f8; /* Cor de fundo da página */
+}
+
+/* Estilize o menu principal */
+.header {
+  background-color: #7b001f; /* Vermelho Grená */
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  width: 100%; /* Ocupa toda a largura da tela */
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%; /* Ocupa toda a largura da tela */
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+/* Estilize as seções para dividi-las em 4 colunas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas de largura igual */
+  grid-gap: 20px; /* Espaçamento entre as colunas */
+}
+
+/* Estilize as colunas */
+.column {
+  width: 100%; /* Ocupa toda a largura da coluna */
+}
+
+#news-image {
+  width: 100%; /* Ocupa toda a largura da coluna */
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+/* Restante do seu CSS... */
+
+/* Adicione separação visual entre as seções */
+.section {
+  width: 100%; /* Ocupa toda a largura da tela */
+  padding: 20px;
+  border-top: 1px solid #ccc; /* Adiciona uma borda no topo da seção */
+  text-align: center; /* Centraliza o conteúdo na seção */
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área de Administração</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <a href="telaadmin.html">Página Inicial</a>
+        <a href="basededados.html">Editais Passados</a>
+        <a href="#">Suporte</a>
+        <a href="#">Usuários</a>
+        <a href="#">Minha Conta</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Bolsas de Incentivo à Criação Cultural (BICC)</h2>
+    </section>
+
+    <section class="section dashboard">
+      <select id="chartType">
+        <option value="bar">Inscrições por dia</option>
+        <option value="bar">Acessos por dia</option>
+        <option value="pie">Comparação entre as Modalidades</option>
+      </select>
+
+      <canvas id="myChart"></canvas>
+
+      <script>
+        var chartTypeSelect = document.getElementById("chartType");
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var currentChart;
+
+        // Função para gerar dados randômicos
+        function generateRandomData() {
+          var data = [];
+          for (var i = 0; i < 5; i++) {
+            data.push(Math.floor(Math.random() * 20) + 1);
+          }
+          return data;
+        }
+
+        // Função para atualizar o gráfico
+        function updateChart(chartType, data, labels) {
+          if (currentChart) {
+            currentChart.destroy();
+          }
+
+          var chartData = {
+            labels: labels,
+            datasets: [
+              {
+                label: "Inscritos",
+                data: data,
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+              },
+            ],
+          };
+
+          var options = {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          };
+
+          currentChart = new Chart(ctx, {
+            type: chartType,
+            data: chartData,
+            options: options,
+          });
+        }
+
+        // Atualizar o gráfico quando a seleção mudar
+        chartTypeSelect.addEventListener("change", function () {
+          var selectedChartType = chartTypeSelect.value;
+          var randomData = generateRandomData();
+
+          var selectedLabels;
+          if (selectedChartType === "pie") {
+            selectedLabels = [
+              "Artes Cênicas",
+              "Audiovisual",
+              "Cultura Pop",
+              "Literatura",
+              "Música",
+            ];
+          } else {
+            selectedLabels = ["20/08", "21/08", "22/08", "23/08", "24/08"];
+          }
+
+          updateChart(selectedChartType, randomData, selectedLabels);
+        });
+
+        // Inicializar o gráfico
+        var initialData = generateRandomData();
+        var initialLabels = ["20/08", "21/08", "22/08", "23/08", "24/08"];
+        updateChart("bar", initialData, initialLabels);
+      </script>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2023 PROEXC. Todos os direitos reservados.</p>
+    </footer>
+  </body>
+</html>

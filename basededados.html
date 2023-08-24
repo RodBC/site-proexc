@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráficos de Editais Passados</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <a href="telaadmin.html">Página Inicial</a>
+        <a href="#">Editais Passados</a>
+        <a href="#">Suporte</a>
+        <a href="#">Usuários</a>
+        <a href="#">Minha Conta</a>
+      </nav>
+    </header>
+
+    <!-- ... Código anterior ... -->
+
+    <section class="section">
+      <form id="chartForm">
+        <label for="selectYear">Escolha o Ano:</label>
+        <select id="selectYear">
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+        </select>
+
+        <label for="selectEdital">Escolha o Edital:</label>
+        <select id="selectEdital">
+          <option value="Edital1">Edital1</option>
+          <option value="Edital2">Edital2</option>
+          <option value="Edital3">Edital3</option>
+          <option value="Edital4">Edital4</option>
+        </select>
+
+        <button type="submit">Confirmar</button>
+        <p></p>
+        <select id="chartType" hidden>
+          <option value="bar">Candidatos por Evento</option>
+          <option value="bar">Produtos Artísticos Completos</option>
+          <option value="bar">Prestações de contas em aberto</option>
+        </select>
+        <button id="gerardados" type="submit" hidden>Gerar dados</button>
+      </form>
+
+      <canvas id="myChart"></canvas>
+
+      <script>
+        var chartForm = document.getElementById("chartForm");
+        var generatedata = document.getElementById("gerardados");
+        var selectYear = document.getElementById("selectYear");
+        var selectEdital = document.getElementById("selectEdital");
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var currentChart;
+
+        // Função para gerar dados randômicos
+        function generateRandomData() {
+          var data = [];
+          for (var i = 0; i < 5; i++) {
+            data.push(Math.floor(Math.random() * 20) + 1);
+          }
+          return data;
+        }
+
+        // Função para atualizar o gráfico
+        function updateChart(data, labels) {
+          if (currentChart) {
+            currentChart.destroy();
+          }
+
+          var chartData = {
+            labels: labels,
+            datasets: [
+              {
+                label: "Inscritos",
+                data: data,
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+              },
+            ],
+          };
+
+          var options = {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          };
+
+          currentChart = new Chart(ctx, {
+            type: "bar",
+            data: chartData,
+            options: options,
+          });
+        }
+
+        // Atualizar o gráfico quando o formulário for enviado
+        chartForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          document.getElementById("chartType").removeAttribute("hidden");
+          document.getElementById("gerardados").removeAttribute("hidden");
+        });
+        generatedata.addEventListener("click", function (event) {
+          var selectedEdital = selectEdital.value;
+          // Aqui você pode obter os dados do edital selecionado e suas informações
+          // Atualize a variável data com os dados reais do edital
+          var data = generateRandomData();
+          // Atualize a variável labels com as informações correspondentes
+          var labels = [
+            "Artes Cênicas",
+            "Audiovisual",
+            "Cultura Pop",
+            "Literatura",
+            "Música",
+          ];
+          updateChart(data, labels);
+        });
+      </script>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2023 PROEXC. Todos os direitos reservados.</p>
+    </footer>
+  </body>
+</html>
